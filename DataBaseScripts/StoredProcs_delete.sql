@@ -14,6 +14,12 @@ DROP PROCEDURE IF EXISTS delete_physician;
 DROP PROCEDURE IF EXISTS delete_physicianPatient;
 DROP PROCEDURE IF EXISTS delete_patientPhysician;
 
+-- jeremiah
+DROP PROCEDURE IF EXISTS delete_message;
+DROP PROCEDURE IF EXISTS delete_prescription;
+DROP PROCEDURE IF EXISTS delete_appointment;
+DROP PROCEDURE IF EXISTS delete_addresspatient;
+
 -- custom
 DROP PROCEDURE IF EXISTS delete_refillrequest;
 
@@ -92,8 +98,36 @@ BEGIN
 	DELETE FROM patientphysician WHERE PatientID = patID;
 END//
 
-CREATE PROCEDURE delete_refillrequest(IN prescriptionID INT(11), IN dateCreated DATE)
+CREATE PROCEDURE delete_refillrequest
+(IN prescriptionID INT(11),
+ IN dateCreated DATE)
 BEGIN
 	DELETE FROM refillrequest WHERE PrescriptionID = prescriptionID AND DateCreated = dateCreated;
 END//
+
+
+CREATE PROCEDURE delete_message
+(IN messageid INT(11))
+BEGIN
+	DELETE FROM messages WHERE MessageID = messageid;
+END//
+
+CREATE PROCEDURE delete_prescription(IN prescriptionid INT(11))
+BEGIN
+	DELETE FROM prescription WHERE PrescriptionID = prescriptionid;
+END//
+
+CREATE PROCEDURE delete_appointment(IN appointmentid VARCHAR(10))
+BEGIN
+	DELETE FROM appointment WHERE AppointmentID = appointmentid;
+END//
+
+CREATE PROCEDURE delete_addresspatient
+(IN address_id VARCHAR(10),
+IN patient_id VARCHAR(15))
+BEGIN
+	DELETE FROM addresspatient 
+   WHERE AddressID = address_id AND PatientID = patient_id;
+END//
+
 DELIMITER ;
