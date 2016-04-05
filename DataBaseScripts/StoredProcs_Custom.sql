@@ -9,6 +9,8 @@ DROP PROCEDURE IF EXISTS get_all_messages_by_user;
 DROP PROCEDURE IF EXISTS get_users_where_username_like;
 DROP PROCEDURE IF EXISTS update_refillrequest_status;
 DROP PROCEDURE IF EXISTS select_refillrequest_by_status;
+DROP PROCEDURE IF EXISTS select_all_prescriptions_by_physician;
+DROP PROCEDURE IF EXISTS select_all_prescriptions_by_patient;
 
 DELIMITER \\
 
@@ -87,6 +89,18 @@ IN status varchar(10))
 BEGIN
    SELECT * FROM refillrequest
    WHERE Status = status;
+END \\
+
+--get prescription based on physician for yumi
+CREATE PROCEDURE select_all_prescriptions_by_physician(IN physID VARCHAR(15))
+BEGIN
+	SELECT * FROM Prescription WHERE PhysicianID = physID;
+END \\
+
+--get prescription based on patient for yumi
+CREATE PROCEDURE select_all_prescriptions_by_patient(IN patID VARCHAR(15))
+BEGIN
+	SELECT * FROM Prescription WHERE PatientID = patID;
 END \\
 
 DELIMITER ;
