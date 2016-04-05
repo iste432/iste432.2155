@@ -1,12 +1,14 @@
 DELIMITER ;
 USE iste432a;
 
--- medication Insert 
+-- ted
 DROP PROCEDURE IF EXISTS insert_medication;
 DROP PROCEDURE IF EXISTS insert_contact_info;
 DROP PROCEDURE IF EXISTS insert_address;
 DROP PROCEDURE IF EXISTS insert_user;
 DROP PROCEDURE IF EXISTS insert_insurance;
+
+-- gary
 DROP PROCEDURE IF EXISTS insert_practice;
 DROP PROCEDURE IF EXISTS insert_patient;
 DROP PROCEDURE IF EXISTS insert_physician;
@@ -20,6 +22,8 @@ DROP PROCEDURE IF EXISTS insert_prescription;
 DROP PROCEDURE IF EXISTS insert_appointment;
 
 DELIMITER //
+-- ted
+
 -- medication Insert
 CREATE PROCEDURE insert_medication
 	(IN _medicationID int(11),
@@ -84,6 +88,9 @@ CREATE PROCEDURE insert_insurance
 		VALUES (_insuranceID,_name,_addressID,_contactID);
 	END //
 
+   -- jeremiah / gary
+   
+   
  -- insert practice
    CREATE PROCEDURE insert_practice(IN prctID INT(11), IN prName VARCHAR(256), IN conID INT(11), IN addrID VARCHAR(10))
 BEGIN
