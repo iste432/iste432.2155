@@ -1,4 +1,5 @@
 <?php include "../build.php"; ?>
+<?php require_once "functions.php"; ?>
 <html>
 <head>
 	<title>MyHealth</title>
@@ -24,7 +25,7 @@
 						<td><label for="patient-id">Patient</label></td>
 						<td>
 							<select id="patient-id" name="patient-id">
-								<option>Test</option>
+								<?php echo getPatientsOptions(); ?>
 							</select>
 						</td>
 					</tr>
@@ -32,7 +33,7 @@
 						<td><label for="medication-id">Medication</label></td>
 						<td>
 							<select id="medication-id" name="medication-id">
-								<option>Test</option>
+								<?php echo getMedicationsOptions(); ?>
 							</select>
 						</td>
 					</tr>
