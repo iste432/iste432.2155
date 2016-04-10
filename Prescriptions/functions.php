@@ -1,26 +1,62 @@
 <?php
-$db_host = "localhost";  // use "localhost" if the database is running on the same server as your PHP script
-$db_user = "yxk6281";    // your RIT username
-$db_pass = "fr1end";    // default is "fr1end", but you should change it
-$db_name = "yxk6281";    // database name is the same as your username
+define("HOST", "localhost");
+define("USER", "yxk6281");
+define("PASS", "fr1end");
+define("DB", "yxk6281");
+define("PHYSICIAN_ID", "PHY000000000001");
 
-$conn = mysqli_connect( $db_host, $db_user, $db_pass, $db_name );
+function getConnection() {
+	$mysqli = new mysqli(HOST, USER, PASS, DB);
+
+	if (!$mysqli) {
+		echo( "Connect failed: " . mysqli_connect_error() );
+		exit();
+	}
+
+	return $mysqli;
+}
 
 function getPatientsOptions() {
+	$mysqli = getConnection();
 
-	$result = mysqli_query($conn, "select_medication") or die("Query fail: " . mysqli_error());
+	$result = $mysqli->query("SELECT pat.Name as Name, pat.PatientID as PatientID FROM patient pat JOIN patientphysician pp USING(PatientID) JOIN physician phy ON pp.PhysicianID = phy.PhysicianID WHERE pp.PhysicianID='" . PHYSICIAN_ID . "' ORDER BY Name");
 	$html = "";
 
-	//loop the result set
-	while ($row = mysqli_fetch_array($result)){
-		$tradeName = $row['TradeName'];
-		$html .= "<option>" . $tradeName . "</option>";
+	if ($result && $mysqli->affected_rows > 0) {
+		while ($row = mysqli_fetch_array($result)){
+			$id = $row['PatientID'];
+			$name = $row['Name'];
+			$html .= "<option value='" . $id . "'>" . $name . "</option>";
+		}
+	} else {
+		$html = $mysqli->error;
 	}
+
+	$mysqli->close();
+
 	return $html;
 }
 
 function getMedicationsOptions() {
-	return "<option>test</option><option>test2</option>";
+	$mysqli = getConnection();
+
+	$result = $mysqli->query("SELECT MedicationID, TradeName, GenericName FROM medication ORDER BY TradeName");
+	$html = "";
+
+	if ($result && $mysqli->affected_rows > 0) {
+		while ($row = mysqli_fetch_array($result)){
+			$id = $row['MedicationID'];
+			$tradeName = $row['TradeName'];
+			$genericName = $row['GenericName'];
+			$html .= "<option value='" . $id . "'>" . $tradeName . "</option>";
+		}
+	} else {
+		$html = $mysqli->error;
+	}
+
+	$mysqli->close();
+
+	return $html;
 }
 
 ?>

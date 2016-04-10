@@ -7,6 +7,10 @@
 	<link href="../assets/css/font-awesome/font-awesome.css" rel="stylesheet">
 	<link href="../assets/css/prescriptions.css" rel="stylesheet">
 	<link href="../assets/css/styleNavbar.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="../assets/js/jquery-2.2.3.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<script src="assets/js/create.js"></script>
 	<?php buildHead(); ?>
 </head>
 <body>
@@ -18,7 +22,7 @@
 
 		<div id="content">
 			<h3 class="fill-header">Create Prescription</h3>
-			<form id="create-prescription-form">
+			<form id="create-prescription-form" action="prescriptionCreate.php" method="POST">
 				<table id="create-prescription-table">
 					<!-- Physician ID should be pulled from session -->
 					<tr>
