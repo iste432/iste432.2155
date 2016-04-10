@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 	<script src="../assets/js/jquery-2.2.3.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-	<script src="assets/js/create.js"></script>
+	<script src="../assets/js/prescriptions.js"></script>
 	<?php buildHead(); ?>
 </head>
 <body>
@@ -22,6 +22,7 @@
 
 		<div id="content">
 			<h3 class="fill-header">Create Prescription</h3>
+			<div id="messages"></div>
 			<form id="create-prescription-form" action="prescriptionCreate.php" method="POST">
 				<table id="create-prescription-table">
 					<!-- Physician ID should be pulled from session -->
@@ -51,7 +52,7 @@
 					</tr>
 					<tr>
 						<td><label for="exp-date">Expiration Date</label></td>
-						<td><input id="exp-date" name="exp-date" type="text"></td>
+						<td><input id="exp-date" class="datepicker" name="exp-date" type="text"></td>
 					</tr>
 					<tr>
 						<td><label for="frequency">Frequency</label></td>
