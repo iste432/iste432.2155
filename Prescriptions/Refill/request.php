@@ -1,4 +1,4 @@
-<?php include "../../build.php"; ?>
+<?php include "../../build2.php"; ?>
 <?php require_once "../functions.php"; ?>
 <?
 if (isset($_POST['submit']) && $_POST['submit'] == "request-refill") {
@@ -34,14 +34,14 @@ if (isset($_POST['submit']) && $_POST['submit'] == "request-refill") {
 	<script src="../../assets/js/jquery-2.2.3.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<script src="../../assets/js/prescriptions.js"></script>
-	<?php buildHead(); ?>
+	<?php buildHead("../../"); ?>
 </head>
 <body>
-	<?php buildBanner(); ?>
+	<?php buildBanner("../../"); ?>
 
 	<div id="wrapper">
 
-		<?php buildNavigation(); ?>
+		<?php buildNavigation("../../"); ?>
 
 		<div id="content">
 			<h3 class="fill-header">Request Refill</h3>
@@ -76,6 +76,6 @@ if (isset($_POST['submit']) && $_POST['submit'] == "request-refill") {
 		</div>
 	</div>
 
-	<?php buildFooter(); ?>
+	<?php buildFooter("../../"); ?>
 </body>
 </html>

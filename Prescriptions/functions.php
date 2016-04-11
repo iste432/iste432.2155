@@ -27,7 +27,11 @@ function getPatientsOptions() {
 		while ($row = mysqli_fetch_array($result)){
 			$id = $row['PatientID'];
 			$name = $row['Name'];
-			$html .= "<option value='" . $id . "'>" . $name . "</option>";
+			if ($id == $_POST['patient-id']) {
+				$html .= $html .= "<option value='" . $id . "' selected>" . $name . "</option>";
+			} else {
+				$html .= "<option value='" . $id . "'>" . $name . "</option>";
+			}
 		}
 	} else {
 		$html = $mysqli->error;
@@ -49,7 +53,11 @@ function getMedicationsOptions() {
 			$id = $row['MedicationID'];
 			$tradeName = $row['TradeName'];
 			$genericName = $row['GenericName'];
-			$html .= "<option value='" . $id . "'>" . $tradeName . "</option>";
+			if ($id == $_POST['medication-id']) {
+				$html .= "<option value='" . $id . "' selected>" . $tradeName . "</option>";
+			} else {
+				$html .= "<option value='" . $id . "'>" . $tradeName . "</option>";
+			}
 		}
 	} else {
 		$html = $mysqli->error;
@@ -71,7 +79,11 @@ function getPrescriptions() {
 			$id = $row['PrescriptionID'];
 			$expDate = $row['ExpDate'];
 			$tradeName = $row['TradeName'];
-			$html .= "<option value='" . $id ."'>" . $tradeName . " (expires " . $expDate . ")</option>";
+			if ($id == $_POST['prescription-id']) {
+				$html .= "<option value='" . $id ."' selected>" . $tradeName . " (expires " . $expDate . ")</option>";
+			} else {
+				$html .= "<option value='" . $id ."'>" . $tradeName . " (expires " . $expDate . ")</option>";
+			}
 		}
 	} else {
 		$html = $mysqli->error;
