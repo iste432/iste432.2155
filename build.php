@@ -30,7 +30,7 @@
 						<li><a href="#"><img id="messageIcon" src="' . $path . 'assets/img/messageIcon.png" alt="Message Icon"/>Message</a></li>
 						<li><a href="#"><i class="fa fa-clipboard"></i>Medical Info</a></li>
 						<li><a href="#"><i class="fa fa-stethoscope"></i>Tests</a></li>
-						<li><a href="Perscriptions/index.php"><i class="fa fa-plus-square"></i>Prescriptions</a></li>
+						<li><a href="Prescriptions/index.php"><i class="fa fa-plus-square"></i>Prescriptions</a></li>
 						<li><a href="#"><i class="fa fa-user-md"></i>Find a Physician</a></li>
 						<li><a href="#"><i class="fa fa-sign-out"></i>Log out</a></li>
 					</ul>
