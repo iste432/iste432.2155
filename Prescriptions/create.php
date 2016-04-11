@@ -1,4 +1,4 @@
-<?php include "../build2.php"; ?>
+<?php include "../build.php"; ?>
 <?php require_once "functions.php"; ?>
 <?
 if (isset($_POST['submit']) && $_POST['submit'] == "create-prescription") {
