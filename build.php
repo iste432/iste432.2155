@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">';
 	}
 
-	function buildBanner($path){
+	function buildBanner($path = ""){
 		echo
 		'<!-- MyHealth Div -->
 		<div id = "myHealthDiv">
