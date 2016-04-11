@@ -2,11 +2,11 @@
 	width:100%;
 }
 
-#create-prescription-form {
-
+#create-prescription-table {
+	width:600px;
 }
 
-#create-prescription-table {
+#request-refill-table {
 	width:600px;
 }
 

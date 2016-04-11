@@ -3,6 +3,7 @@ $(document).ready(function() {
 		dateFormat: "yy-mm-dd"
 	});
 	$('#create-prescription-form').submit(validateCreatePrescriptionForm);
+	$('#request-refill-form').submit(validateRefillRequest);
 });
 
 function validateCreatePrescriptionForm() {
@@ -18,8 +19,6 @@ function validateCreatePrescriptionForm() {
 	var frequency = $('#frequency').val();
 	var route = $('#route').val();
 
-	console.log("dosage: " + dosage);
-
 	// validate all form elements
 	if (patientId == null || patientId == "") { valid = false; msg += "Please select a patient<br>"; }
 	if (medicationId == null || medicationId == "") { valid = false; msg += "Please select a medication<br>"; }
@@ -28,6 +27,29 @@ function validateCreatePrescriptionForm() {
 	if (expDate == null || expDate == "") { valid = false; msg += "Please input an expiration date<br>"; }
 	if (frequency == null || frequency == "") { valid = false; msg += "Please input a frequency<br>"; }
 	if (route == null || route == "") { valid = false; msg += "Please input a route<br>"; }
+
+	if (!valid) {
+		event.preventDefault();
+	}
+
+	msg += "</p>";
+
+	$('#messages').html(msg);
+}
+
+function validateRefillRequest() {
+	$('#errors').html("");
+
+	var valid = true;
+	var msg = "<p style='color:red;'>";
+	var prescriptionId = $('#prescription-id').val();
+	var dateRequestedBy = $('#date-requested-by').val();
+	var comments = $('#comments').val();
+
+	// validate all form elements
+	if (prescriptionId == null || prescriptionId == "") { valid = false; msg += "Please select a Prescription<br>"; }
+	if (dateRequestedBy == null || dateRequestedBy == "") { valid = false; msg += "Please include a date requested by<br>"; }
+	if (comments == null || comments == "") { valid = false; msg += "Please include comments for reason of refill<br>"; }
 
 	if (!valid) {
 		event.preventDefault();
