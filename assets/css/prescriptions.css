@@ -1,0 +1,16 @@
+.fill-header {
+	width:100%;
+}
+
+#create-prescription-table {
+	width:600px;
+}
+
+#request-refill-table {
+	width:600px;
+}
+
+#messages {
+	width:600px;
+	margin:10px 0px;
+}
