@@ -1,9 +1,20 @@
-<?php include "../build.php"; ?>
-<?php require_once "functions.php"; ?>
+<?php
+include "../build.php";
+require_once "functions.php";
+if(validate(htmlspecialchars($_GET["medId"])) == false)
+{
+	header('location:error.php');
+}
+else
+{
+	$medId = htmlspecialchars($_GET["medId"]);
+}
+?>
 
+<!-- verify the patient and prescription from the session and URL respectively before running the query -->
 <htmL>
 	<head>
-		<title> View Prescriptions </title>
+		<title> View Details </title>
 		<link href="../assets/css/font-awesome/font-awesome.min.css" rel="stylesheet">
 		<link href="../assets/css/font-awesome/font-awesome.css" rel="stylesheet">
 		<link href="../assets/css/prescriptions.css" rel="stylesheet">
@@ -15,12 +26,12 @@
 		<?php buildHead("../"); ?>
 	</head>
 	<body>
-		<?php buildBanner("../"); ?>
+	<?php buildBanner("../"); ?>
 		<div id="wrapper">
 			<?php buildNavigation("../"); ?>
 			<div id="content">
-				<h3 class="fill-header">View Prescriptions for PAT000000000001</h3>
-				<? echo getPrescriptionsList('PAT000000000001') ?>
+				<h3 class="fill-header">View Prescriptions Details for TradeName</h3>
+				<? echo getDetails(htmlspecialchars($_GET["medId"])) ?>
 			</div>
 		</div>
 	</body>
