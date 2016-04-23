@@ -249,6 +249,66 @@ function getDetails($medNum)
 	$mysqli->close();
 
 	return $html;
+} //end getDetails
+
+
+function getPoints($medNum)
+{
+	$mysqli = getConnection();
+
+	$result = $mysqli->query("SELECT
+		m.GenericName as GenericName,
+		m.TradeName as TradeName, 
+		m.GenericCategory as GenericCategory,
+		m.TherapeuticCategory as TherapeuticCategory,
+		m.CounselingPoints as CounselingPoints
+	FROM medication m WHERE m.medicationID = '".$medNum."';");
+
+	$html = "";
+
+	if ($result && $mysqli->affected_rows > 0)
+	{
+		$html .= "
+		<table class='table table-striped table-bordered table-hover'>
+		<tr>
+			<th>Generic Name</th>
+			<th>Trade Name</th>
+			<th>Generic Category</th>
+			<th>Therapeutic Category</th>
+			<th>Counseling Points</th>
+		</tr>";
+
+		while ($row = mysqli_fetch_assoc($result))
+		{
+			$GenericName = $row['GenericName'];
+			$TradeName = $row['TradeName'];
+			$GenericCategory = $row['GenericCategory'];
+			$TherapeuticCategory = $row['TherapeuticCategory'];
+			$CounselingPoints = $row['CounselingPoints'];
+			
+			$html .= "
+				<tr>
+					<td>". $GenericName ." </td>
+					<td>". $TradeName ." </td>
+					<td>". $GenericCategory ."</td>
+					<td>". $TherapeuticCategory ."</td>
+					<td>". $CounselingPoints."</td>
+				</tr>
+			";				
+		}
+		$html .=  "</table>";
+
+	} 
+	else
+	{
+		$html = $mysqli->error;
+	}
+
+	$mysqli->close();
+
+	return $html;
 }
+
+
 
 ?>
