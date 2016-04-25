@@ -81,7 +81,7 @@ function getMedicationsOptions() {
 function getPrescriptions() { //for the dropdown
 	$mysqli = getConnection();
 
-	$result = $mysqli->query("SELECT p.PrescriptionID as PrescriptionID, p.`Exp Date` as ExpDate, m.TradeName as TradeName FROM prescription p 
+	$result = $mysqli->query("SELECT p.PrescriptionID as PrescriptionID, p.`ExpDate` as ExpDate, m.TradeName as TradeName FROM prescription p 
 		JOIN medication m USING (MedicationID) WHERE PatientID='" . PATIENT_ID . "' ORDER BY m.TradeName");
 	$html = "";
 
@@ -116,17 +116,17 @@ function getPrescriptionsList()
 		p.Frequency as Frequency,
 		p.Route as Route,
 		p.ExpDate as ExpDate, 
-		m.GenericName as GenericName,
+		m.TradeName as TradeName,
 		m.MedicationID as MedicationID
 	FROM prescription p 
-	JOIN medication m USING (MedicationID) WHERE PatientID='" . PATIENT_ID . "' ORDER BY m.GenericName");
+	JOIN medication m USING (MedicationID) WHERE PatientID='" . PATIENT_ID . "' ORDER BY m.TradeName asc");
 	$html = "";
 
 	if ($result && $mysqli->affected_rows > 0)
 	{
 		$html .= "<table class='table table-striped table-bordered table-hover'>
 		<tr>
-			<th>Generic Name</th>
+			<th>Trade Name</th>
 			<th>Dosage</th>
 			<th>Refills</th>
 			<th>Expiration Date</th>
@@ -138,7 +138,7 @@ function getPrescriptionsList()
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$GenericName = $row['GenericName'];
+			$TradeName = $row['TradeName'];
 			$id = $row['PrescriptionID'];
 			$Dosage = $row['Dosage'];
 			$Refills = $row['Refills'];
@@ -150,7 +150,7 @@ function getPrescriptionsList()
 			
 			$html .= "
 				<tr>
-					<td>". $GenericName ." </td>
+					<td>". $TradeName ." </td>
 					<td>". $Dosage ."</td>
 					<td>". $Refills ."</td>
 					<td>". $ExpDate."</td>
