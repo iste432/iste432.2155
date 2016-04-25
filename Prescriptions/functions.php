@@ -29,7 +29,7 @@ function validate($medNum)
 function getPatientsOptions() {
 	$mysqli = getConnection();
 
-	$result = $mysqli->query("SELECT pat.Name as Name, pat.PatientID as PatientID FROM patient pat JOIN patientphysician pp USING(PatientID) JOIN physician phy 
+	$result = $mysqli->query("SELECT pat.Name as Name, pat.PatientID as PatientID FROM patient pat JOIN patientphysician pp USING(PatientID) JOIN physician phy
 		ON pp.PhysicianID = phy.PhysicianID WHERE pp.PhysicianID='" . PHYSICIAN_ID . "' ORDER BY Name");
 	$html = "";
 
@@ -80,9 +80,18 @@ function getMedicationsOptions() {
 
 function getPrescriptions() { //for the dropdown
 	$mysqli = getConnection();
+	$query = "";
 
-	$result = $mysqli->query("SELECT p.PrescriptionID as PrescriptionID, p.`ExpDate` as ExpDate, m.TradeName as TradeName FROM prescription p 
-		JOIN medication m USING (MedicationID) WHERE PatientID='" . PATIENT_ID . "' ORDER BY m.TradeName");
+	if (isset($_GET['medId']) && isset($_GET['id'])) {
+		$query = "SELECT p.PrescriptionID as PrescriptionID, p.`ExpDate` as ExpDate, m.TradeName as TradeName FROM prescription p
+		JOIN medication m USING (MedicationID) WHERE PrescriptionID='" . $_GET['id'] . "' ORDER BY m.TradeName";
+	} else {
+		$query = "SELECT p.PrescriptionID as PrescriptionID, p.`ExpDate` as ExpDate, m.TradeName as TradeName FROM prescription p
+		JOIN medication m USING (MedicationID) WHERE PatientID='" . PATIENT_ID . "' ORDER BY m.TradeName";
+	}
+
+	$result = $mysqli->query($query);
+
 	$html = "";
 
 	if ($result && $mysqli->affected_rows > 0) {
@@ -109,16 +118,16 @@ function getPrescriptionsList()
 {
 	$mysqli = getConnection();
 
-	$result = $mysqli->query("SELECT 
+	$result = $mysqli->query("SELECT
 		p.PrescriptionID as PrescriptionID,
 		p.Dosage as Dosage,
 		p.Refills as Refills,
 		p.Frequency as Frequency,
 		p.Route as Route,
-		p.ExpDate as ExpDate, 
+		p.ExpDate as ExpDate,
 		m.TradeName as TradeName,
 		m.MedicationID as MedicationID
-	FROM prescription p 
+	FROM prescription p
 	JOIN medication m USING (MedicationID) WHERE PatientID='" . PATIENT_ID . "' ORDER BY m.TradeName asc");
 	$html = "";
 
@@ -147,7 +156,7 @@ function getPrescriptionsList()
 			$ExpDate = $row['ExpDate'];
 			$TradeName = $row['TradeName'];
 			$MedicationID = $row['MedicationID'];
-			
+
 			$html .= "
 				<tr>
 					<td>". $TradeName ." </td>
@@ -159,11 +168,11 @@ function getPrescriptionsList()
 					<td><a href='viewDetails.php?medId=".$MedicationID."'> View Details </a></td>
 					<td><a href='Refill/request.php?medId=".$MedicationID."&id=".$id."'> Request a refill </a></td>
 				</tr>
-			";				
+			";
 		}
 		$html .=  "</table>";
 
-	} 
+	}
 	else
 	{
 		$html = $mysqli->error;
@@ -179,17 +188,17 @@ function getDetails($medNum)
 {
 	$mysqli = getConnection();
 
-	$result = $mysqli->query("SELECT 
+	$result = $mysqli->query("SELECT
 		m.TradeName as TradeName,
 		p.PrescriptionID as PrescriptionID,
 		p.Dosage as Dosage,
 		p.Refills as Refills,
 		p.Frequency as Frequency,
 		p.Route as Route,
-		p.ExpDate as ExpDate, 
+		p.ExpDate as ExpDate,
 		m.GenericName as GenericName,
 		m.MedicationID as MedicationID
-	FROM prescription p 
+	FROM prescription p
 	JOIN medication m USING (MedicationID) WHERE PatientID='" . PATIENT_ID . "' and
 	m.medicationID = '".$medNum."' ORDER BY m.GenericName");
 
@@ -223,7 +232,7 @@ function getDetails($medNum)
 			$ExpDate = $row['ExpDate'];
 			$TradeName = $row['TradeName'];
 			$MedicationID = $row['MedicationID'];
-			
+
 			$html .= "
 				<tr>
 					<td>". $TradeName ." </td>
@@ -236,11 +245,11 @@ function getDetails($medNum)
 					<td><a href='viewCounselingPoints.php?medId=".$MedicationID."' target='_blank'>View Counseling Points </a> </td>
 					<td><a href='Refill/request.php?medId=".$MedicationID."&id=".$id."'> Request a refill </a></td>
 				</tr>
-			";				
+			";
 		}
 		$html .=  "</table>";
 
-	} 
+	}
 	else
 	{
 		$html = $mysqli->error;
@@ -258,7 +267,7 @@ function getPoints($medNum)
 
 	$result = $mysqli->query("SELECT
 		m.GenericName as GenericName,
-		m.TradeName as TradeName, 
+		m.TradeName as TradeName,
 		m.GenericCategory as GenericCategory,
 		m.TherapeuticCategory as TherapeuticCategory,
 		m.CounselingPoints as CounselingPoints
@@ -285,7 +294,7 @@ function getPoints($medNum)
 			$GenericCategory = $row['GenericCategory'];
 			$TherapeuticCategory = $row['TherapeuticCategory'];
 			$CounselingPoints = $row['CounselingPoints'];
-			
+
 			$html .= "
 				<tr>
 					<td>". $GenericName ." </td>
@@ -294,11 +303,11 @@ function getPoints($medNum)
 					<td>". $TherapeuticCategory ."</td>
 					<td>". $CounselingPoints."</td>
 				</tr>
-			";				
+			";
 		}
 		$html .=  "</table>";
 
-	} 
+	}
 	else
 	{
 		$html = $mysqli->error;
