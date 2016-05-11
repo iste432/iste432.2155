@@ -41,7 +41,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == "request-refill") {
 
 	<div id="wrapper">
 
-		<?php buildNavigation("../../"); ?>
+		<?php buildNavigation("../../","Prescriptions"); ?>
 
 		<div id="content">
 			<h3 class="fill-header">Request Refill</h3>
