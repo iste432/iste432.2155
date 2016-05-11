@@ -39,7 +39,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == "create-prescription") {
 
 	<div id="wrapper">
 
-		<?php buildNavigation("../"); ?>
+		<?php buildNavigation("../","Prescriptions"); ?>
 
 		<div id="content">
 			<h3 class="fill-header">Create Prescription</h3>

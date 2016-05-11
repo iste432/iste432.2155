@@ -28,7 +28,7 @@ else
 	<body>
 	<?php buildBanner("../"); ?>
 		<div id="wrapper">
-			<?php buildNavigation("../"); ?>
+			<?php buildNavigation("../","Prescriptions"); ?>
 			<div id="content">
 				<h3 class="fill-header">View Prescriptions Details for TradeName</h3>
 				<? echo getDetails(htmlspecialchars($_GET["medId"])) ?>

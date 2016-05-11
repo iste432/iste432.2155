@@ -37,7 +37,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == "request-refill") {
 	<?php buildHead("../../"); ?>
 </head>
 <body>
-	<?php buildBanner("../../"); ?>
+	<?php buildBanner("../../","Prescriptions"); ?>
 
 	<div id="wrapper">
 
