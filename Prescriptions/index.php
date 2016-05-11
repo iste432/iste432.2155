@@ -17,7 +17,7 @@
 	<body>
 		<?php buildBanner("../"); ?>
 		<div id="wrapper">
-			<?php buildNavigation("../"); ?>
+			<?php buildNavigation("../","Prescriptions"); ?>
 			<div id="content">
 				<h3 class="fill-header">View Prescriptions for PAT000000000001</h3>
 				<? echo getPrescriptionsList('PAT000000000001') ?>
