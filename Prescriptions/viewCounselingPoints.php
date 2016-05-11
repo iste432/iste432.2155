@@ -2,7 +2,7 @@
 //going to have some sort of validation that will validate if the medicaiton is in their list or not
 include "../build.php";
 require_once "functions.php";
-if(validate(htmlspecialchars($_GET["medId"]),'12345') == false)
+if(validate(htmlspecialchars($_GET["medId"]),'PAT000000000001') == false)
 {
 	header('location:error.php');
 }
@@ -14,7 +14,7 @@ else
 
 <htmL>
 	<head>
-		<title> View Details </title>
+		<title> View Counseling Points </title>
 		<link href="../assets/css/font-awesome/font-awesome.min.css" rel="stylesheet">
 		<link href="../assets/css/font-awesome/font-awesome.css" rel="stylesheet">
 		<link href="../assets/css/prescriptions.css" rel="stylesheet">
@@ -28,10 +28,10 @@ else
 	<body>
 	<?php buildBanner("../"); ?>
 		<div id="wrapper">
-			<?php buildNavigation("../"); ?>
+			<?php buildNavigation("../","Prescriptions"); ?>
 			<div id="content">
-				<h3 class="fill-header">View Counseling Points for TradeName</h3>
-				<? echo getPoints(htmlspecialchars($_GET["medId"])) ?>
+				<? echo getTradeName("counseling",htmlspecialchars($_GET["medId"]));
+				echo getPoints(htmlspecialchars($_GET["medId"])) ?>
 			</div>
 		</div>
 	</body>

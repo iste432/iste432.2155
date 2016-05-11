@@ -21,8 +21,32 @@ function getConnection() {
 function validate($medNum)
 {
 	$mysqli = getConnection();
-	$result = $mysqli->query("select * from prescriptions WHERE PatientID='" . PATIENT_ID . "'");
-	return true;
+
+	$medNumArr = array();
+
+	$result = $mysqli->query("SELECT
+		m.MedicationID as MedicationID
+	FROM prescription p
+	JOIN medication m USING (MedicationID) WHERE PatientID='" . PATIENT_ID . "' ORDER BY m.TradeName asc");
+
+	if ($result && $mysqli->affected_rows > 0)
+	{
+		while ($row = mysqli_fetch_assoc($result))
+		{
+			$MedicationID = $row['MedicationID'];
+			$medNumArr[] = $MedicationID;
+		} //end while	
+
+		if (in_array($medNum, $medNumArr))
+		{
+			return true;
+		} //end if
+
+		else
+		{
+			return false;
+		} //end else
+	} //end add it to the array
 }
 
 
@@ -259,6 +283,57 @@ function getDetails($medNum)
 
 	return $html;
 } //end getDetails
+
+function getTradeName($type, $medNum)
+{
+	$mysqli = getConnection();
+
+	$result = $mysqli->query("SELECT
+		m.GenericName as GenericName,
+		m.TradeName as TradeName,
+		m.GenericCategory as GenericCategory,
+		m.TherapeuticCategory as TherapeuticCategory,
+		m.CounselingPoints as CounselingPoints
+	FROM medication m WHERE m.medicationID = '".$medNum."';");
+
+	$html = "";
+	if ($result && $mysqli->affected_rows > 0 && $type == "counseling")
+	{
+		$html .= "<h3 class='fill-header'>View Counseling Points for ";
+
+		while ($row = mysqli_fetch_assoc($result))
+		{
+			$TradeName = $row['TradeName'];
+
+			$html .= $TradeName;
+		}
+		$html .=  " </h3>";
+
+	}
+	elseif($result && $mysqli->affected_rows > 0 && $type == "details")
+	{
+		$html .= "<h3 class='fill-header'>View Details for ";
+
+		while ($row = mysqli_fetch_assoc($result))
+		{
+			$TradeName = $row['TradeName'];
+
+			$html .= $TradeName;
+		}
+		$html .=  " </h3>";	
+	}
+
+	else
+	{
+		$html = $mysqli->error;
+	}
+
+	$mysqli->close();
+
+	return $html;
+}
+
+
 
 
 function getPoints($medNum)
