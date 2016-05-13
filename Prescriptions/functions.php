@@ -1,11 +1,13 @@
 <?php
+require_once("../Login/loginFunctions.php");
 define("HOST", "localhost");
 define("USER", "iste432a");
 define("PASS", "girlScoutCookies");
 define("DB", "iste432a");
-define("PHYSICIAN_ID", "PHY000000000001");
+// define("PHYSICIAN_ID", "PHY000000000001");
 define("USER_ID", $_SESSION["UserID"]);
-define("PATIENT_ID", "PAT000000000001");
+define("ID", getName(USER_ID));
+// define("PATIENT_ID", "PAT000000000001");
 
 function getConnection() {
 	$mysqli = new mysqli(HOST, USER, PASS, DB);
@@ -28,7 +30,7 @@ function validate($medNum)
 	$result = $mysqli->query("SELECT
 		m.MedicationID as MedicationID
 	FROM prescription p
-	JOIN medication m USING (MedicationID) WHERE PatientID='" . PATIENT_ID . "' ORDER BY m.TradeName asc");
+	JOIN medication m USING (MedicationID) WHERE PatientID='" . ID . "' ORDER BY m.TradeName asc");
 
 	if ($result && $mysqli->affected_rows > 0)
 	{
@@ -55,7 +57,7 @@ function getPatientsOptions() {
 	$mysqli = getConnection();
 
 	$result = $mysqli->query("SELECT pat.Name as Name, pat.PatientID as PatientID FROM patient pat JOIN patientphysician pp USING(PatientID) JOIN physician phy
-		ON pp.PhysicianID = phy.PhysicianID WHERE pp.PhysicianID='" . PHYSICIAN_ID . "' ORDER BY Name");
+		ON pp.PhysicianID = phy.PhysicianID WHERE pp.PhysicianID='" . ID . "' ORDER BY Name");
 	$html = "";
 
 	if ($result && $mysqli->affected_rows > 0) {
@@ -112,7 +114,7 @@ function getPrescriptions() { //for the dropdown
 		JOIN medication m USING (MedicationID) WHERE PrescriptionID='" . $_GET['id'] . "' ORDER BY m.TradeName";
 	} else {
 		$query = "SELECT p.PrescriptionID as PrescriptionID, p.`ExpDate` as ExpDate, m.TradeName as TradeName FROM prescription p
-		JOIN medication m USING (MedicationID) WHERE PatientID='" . PATIENT_ID . "' ORDER BY m.TradeName";
+		JOIN medication m USING (MedicationID) WHERE PatientID='" . ID . "' ORDER BY m.TradeName";
 	}
 
 	$result = $mysqli->query($query);
@@ -153,7 +155,7 @@ function getPrescriptionsList()
 		m.TradeName as TradeName,
 		m.MedicationID as MedicationID
 	FROM prescription p
-	JOIN medication m USING (MedicationID) WHERE PatientID='" . PATIENT_ID . "' ORDER BY m.TradeName asc");
+	JOIN medication m USING (MedicationID) WHERE PatientID='" . ID . "' ORDER BY m.TradeName asc");
 	$html = "";
 
 	if ($result && $mysqli->affected_rows > 0)
@@ -224,7 +226,7 @@ function getDetails($medNum)
 		m.GenericName as GenericName,
 		m.MedicationID as MedicationID
 	FROM prescription p
-	JOIN medication m USING (MedicationID) WHERE PatientID='" . PATIENT_ID . "' and
+	JOIN medication m USING (MedicationID) WHERE PatientID='" . ID . "' and
 	m.medicationID = '".$medNum."' ORDER BY m.GenericName");
 
 	$html = "";
