@@ -3,7 +3,8 @@ define("HOST", "localhost");
 define("USER", "iste432a");
 define("PASS", "girlScoutCookies");
 define("DB", "iste432a");
-define("PHYSICIAN_ID", $_SESSION["UserID"]);
+define("PHYSICIAN_ID", "PHY000000000001");
+define("USER_ID", $_SESSION["UserID"]);
 define("PATIENT_ID", "PAT000000000001");
 
 function getConnection() {
