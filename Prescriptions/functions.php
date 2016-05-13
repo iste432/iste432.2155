@@ -3,7 +3,7 @@ define("HOST", "localhost");
 define("USER", "iste432a");
 define("PASS", "girlScoutCookies");
 define("DB", "iste432a");
-define("PHYSICIAN_ID", "PHY000000000001");
+define("PHYSICIAN_ID", $_SESSION["UserID"]);
 define("PATIENT_ID", "PAT000000000001");
 
 function getConnection() {
@@ -35,7 +35,7 @@ function validate($medNum)
 		{
 			$MedicationID = $row['MedicationID'];
 			$medNumArr[] = $MedicationID;
-		} //end while	
+		} //end while
 
 		if (in_array($medNum, $medNumArr))
 		{
@@ -320,7 +320,7 @@ function getTradeName($type, $medNum)
 
 			$html .= $TradeName;
 		}
-		$html .=  " </h3>";	
+		$html .=  " </h3>";
 	}
 
 	else
